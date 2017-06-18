@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Management;
 using System.Web.WebSockets;
 using HtmlAgilityPack;
 using Iveonik.Stemmers;
 using MathNet.Numerics.Distributions;
 using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Complex;
+using MathNet.Numerics.Random;
 
 namespace LSI
 {
@@ -42,15 +45,17 @@ namespace LSI
             var matrix = new[,] {{1.0, 1.0, 1.0}, {1.0, 1.0, 2.0}};
             NormalizeRows(matrix, 2, 3);
             var path = @"C:\Users\mareczek\Source\Repos\plsa\Sample documents";
+            //var path = @"C:\Users\mareczek\PycharmProjects\cache_cam_html";
             var allWords = new HashSet<string>();
             var stemmer = new EnglishStemmer();
             var documentsWordsCount = new List<DocumentWordsCountModel>();
-            var documentsCount = 10;
+            var documentsCount = 20;
             var htmlDocuments = new List<string>();
             foreach (var file in new DirectoryInfo(path).GetFiles())
             {
                 using (var fs = file.OpenRead())
                 {
+                    Console.WriteLine(file.Name);
                     var htmlDocument = new HtmlDocument();
                     htmlDocument.Load(fs);
                     htmlDocuments.Add(file.Name);
@@ -138,8 +143,20 @@ namespace LSI
             var v2 = Vector<double>.Build.DenseOfArray(new double[] { 0, 3 });
             var test = cosSimilarity(v, v2);
 
-            plsa2(TransposeRowsAndColumns(X), 5, 100);
-            plsa(TransposeRowsAndColumns(X), 5, 100);
+            var x2 = new double[3, 4]
+            {
+                {1, 1, 0, 0},
+                {0, 0, 1, 1},
+                {0, 0, 0, 1}
+            };
+
+            //plsa_bardziej_czytelne(x2, 2);
+            //plsa2(x2, 2);
+
+            plsa_bardziej_czytelne(TransposeRowsAndColumns(X), 5);
+                
+            plsa2(TransposeRowsAndColumns(X), 5, 1000);
+            plsa(TransposeRowsAndColumns(X), 5, 1000);
             Console.ReadLine();
 
 
@@ -333,6 +350,12 @@ namespace LSI
             NormalizeRows(documentTopicMatrix);
             NormalizeRows(topicWordMatrix);
 
+            var tmp = 0.0;
+            var lambdaMatrix = new double[1, numberOfTopics];
+            for (int i = 0; i < numberOfTopics; i++)
+            {
+                lambdaMatrix[0, i] = 1;
+            }
             for (int iteration = 0; iteration < maxIterations; iteration++)
             {
                 //stepE
@@ -406,13 +429,83 @@ namespace LSI
                         }
                     }
                 }
+                var l = likelihood(documentWordMatrix, numberOfTopics, documentTopicMatrix, lambdaMatrix, topicWordMatrix, numberOfDocuments, numberOfWords);
+                if (Math.Abs(l - tmp) < 1.0e-10)
+                {
+                    Console.WriteLine(iteration);
+                    break;
+                }
+                else
+                {
+                    tmp = l;
+                }
             }
-            var lambdaMatrix = new double[1, numberOfTopics];
-            for (int i = 0; i < numberOfTopics; i++)
-            {
-                lambdaMatrix[0, i] = 1;
-            }
+            
             printResults(documentWordMatrix, numberOfTopics, documentTopicMatrix, lambdaMatrix, topicWordMatrix, numberOfDocuments);
+            Console.WriteLine("Done");
+        }
+
+        public static void plsa_bardziej_czytelne(double[,] matrix, int topics, int maxIterations = 1000)
+        {
+            int documents = matrix.GetLength(0); //rows N
+            int words = matrix.GetLength(1); //cols M
+
+            var docTop = Matrix<double>.Build.DenseOfArray(GetRandomMatrix(documents, topics)).NormalizeRows(1.0);
+            var topWord = Matrix<double>.Build.DenseOfArray(GetRandomMatrix(topics, words)).NormalizeRows(1.0);
+            var top = Matrix<double>.Build.DenseOfArray(GetRandomMatrix(1, topics)).Row(0).Normalize(1.0);
+            var likelihoodMatrix = Matrix<double>.Build.Dense(documents, words);
+            
+            var docWordTop = Enumerable.Range(0, documents).Select(d => Matrix<double>.Build.Dense(words, topics)).ToList();
+            var previous_L = 0.0;
+            for (int iter = 0; iter < maxIterations; iter++)
+            {
+                // E
+                // P(z|d,w)
+                for (int d = 0; d < documents; d++)
+                    for (int w = 0; w < words; w++)
+                    {
+                        for (int z = 0; z < topics; z++)
+                            docWordTop[d][w, z] = top[z]*docTop[d, z]*topWord[z, w];
+                        docWordTop[d].SetRow(w, docWordTop[d].Row(w).Normalize(1.0));
+                    }
+                // M
+                // P(w|z)
+                for (int z = 0; z < topics; z++)
+                {
+                    for (int w = 0; w < words; w++)
+                        topWord[z, w] = Enumerable.Range(0, documents).Sum(d => matrix[d, w] * docWordTop[d][w, z]);
+                    topWord.SetRow(z, topWord.Row(z).Normalize(1.0));
+                }
+
+                //P(d|z)
+                for (int z = 0; z < topics; z++)
+                {
+                    for (int d = 0; d < documents; d++)
+                        docTop[d, z] = Enumerable.Range(0, words).Sum(w => matrix[d, w]*docWordTop[d][w, z]);
+                    docTop.SetColumn(z, docTop.Column(z).Normalize(1.0));
+                }
+
+                //P(z)
+                for (int z = 0; z < topics; z++)
+                    top[z] = Enumerable.Range(0, documents)
+                        .Sum(d => Enumerable.Range(0, words).Sum(w => matrix[d, w] * docWordTop[d][w, z]));
+                top = top.Normalize(1.0);
+
+                //likelyhood
+                for (int d = 0; d < documents; d++)
+                    for (int w = 0; w < words; w++)
+                        likelihoodMatrix[d, w] = Enumerable.Range(0, topics).Sum(z => top[z]*docTop[d, z]*topWord[z, w]);
+                var likelihood = Enumerable.Range(0, documents)
+                    .Sum(d => Enumerable.Range(0, words).Where(w => likelihoodMatrix[d, w] != 0).Sum(w => matrix[d, w]*Math.Log(likelihoodMatrix[d, w])));
+                if (Math.Abs(likelihood - previous_L) < 1.0e-5) //mozna troche zwiekszyc ale trzeba uwazac bo pojawiają się NaN'y przez sumowanie / mnożenie małych liczb
+                {
+                    Console.WriteLine(iter);
+                    break;
+                }
+                previous_L = likelihood;
+            }
+            var after = docTop.Multiply(Matrix<double>.Build.DenseOfDiagonalVector(top)).Multiply(topWord);
+            printResults2(documents, Matrix<double>.Build.DenseOfArray(matrix), after);
             Console.WriteLine("Done");
         }
 
@@ -430,6 +523,7 @@ namespace LSI
             NormalizeRows(topicWordMatrix);
             NormalizeRows(lambdaMatrix);
 
+            var tmp = 0.0;
             for (int iteration = 0; iteration < maxIterations; iteration++)
             {
                 //stepE
@@ -470,7 +564,7 @@ namespace LSI
                     }
                     lambdaMatrix[0, k_topic_index] = s;
                 }
-                NormalizeRows(lambdaMatrix);
+                NormalizeRows(lambdaMatrix);            
 
                 for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
                 {
@@ -519,6 +613,17 @@ namespace LSI
                         }
                     }
                 }
+
+                var l = likelihood(documentWordMatrix, numberOfTopics, documentTopicMatrix, lambdaMatrix, topicWordMatrix, numberOfDocuments, numberOfWords);
+                if (Math.Abs(l - tmp) < 1.0e-10)
+                {
+                    Console.WriteLine(iteration);
+                    break;
+                }
+                else
+                {
+                    tmp = l;
+                }
             }
             printResults(documentWordMatrix, numberOfTopics, documentTopicMatrix, lambdaMatrix, topicWordMatrix, numberOfDocuments);
             Console.WriteLine("Done");
@@ -536,15 +641,47 @@ namespace LSI
             var vt = Matrix<double>.Build.DenseOfArray(topicWordMatrix);
             var test = u.Multiply(w).Multiply(vt);
             var org = Matrix<double>.Build.DenseOfArray(documentWordMatrix);
+            printResults2(numberOfDocuments, org, test);
+        }
+
+        private static void printResults2(int numberOfDocuments, Matrix<double> org, Matrix<double> after)
+        {
             for (int i = 0; i < numberOfDocuments; i++)
             {
                 for (int j = i + 1; j < numberOfDocuments; j++)
                 {
                     var orgCos = cosSimilarity(org.Row(i), org.Row(j));
-                    var plsaCos = cosSimilarity(test.Row(i), test.Row(j));
+                    var plsaCos = cosSimilarity(after.Row(i), after.Row(j));
                     Console.WriteLine("{2} - {3} orginal: {0:0.00} plsa: {1:0.00}", orgCos, plsaCos, i, j);
                 }
             }
+        }
+
+        private static double likelihood(double[,] documentWordMatrix, int numberOfTopics, double[,] documentTopicMatrix,
+            double[,] lambdaMatrix, double[,] topicWordMatrix, int numberOfDocuments, int numberOfWords)
+        {
+            var ret = 0.0;
+            var docWord = new double[numberOfDocuments, numberOfWords];
+            for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+            {
+                for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                {
+                    double sum = 0.0;
+                    for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                    {
+                        sum +=lambdaMatrix[0, k_topic_index] * documentTopicMatrix[i_document_index, k_topic_index] * topicWordMatrix[k_topic_index, j_word_index];
+                    }
+                    docWord[i_document_index, j_word_index] = sum;
+                }
+            }
+            for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+            {
+                for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                {
+                    ret += documentWordMatrix[i_document_index, j_word_index] * Math.Log(docWord[i_document_index, j_word_index]);
+                }
+            }
+            return ret;
         }
 
         private static double cosSimilarity(Vector<double> a, Vector<double> b)
