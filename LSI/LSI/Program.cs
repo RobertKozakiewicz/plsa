@@ -138,8 +138,8 @@ namespace LSI
             var v2 = Vector<double>.Build.DenseOfArray(new double[] { 0, 3 });
             var test = cosSimilarity(v, v2);
 
-            plsa2(TransposeRowsAndColumns(X), 3, 10);
-            plsa(TransposeRowsAndColumns(X), 3, 10);
+            plsa2(TransposeRowsAndColumns(X), 3, 100);
+            plsa(TransposeRowsAndColumns(X), 3, 100);
             Console.ReadLine();
 
 
@@ -349,9 +349,12 @@ namespace LSI
                             topicMatrix[i_document_index, j_word_index, k_topic_index] = prob;
                         }
                         //normalizacja
-                        for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                        if (normalizeSum != 0.0)
                         {
-                            topicMatrix[i_document_index, j_word_index, k_topic_index] /= normalizeSum;
+                            for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                            {
+                                topicMatrix[i_document_index, j_word_index, k_topic_index] /= normalizeSum;
+                            }
                         }
                     }
                 }
@@ -371,9 +374,12 @@ namespace LSI
                         normalizeSum += s;
                     }
                     //normalizacja
-                    for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                    if (normalizeSum != 0.0)
                     {
-                        topicWordMatrix[k_topic_index, j_word_index] /= normalizeSum;
+                        for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                        {
+                            topicWordMatrix[k_topic_index, j_word_index] /= normalizeSum;
+                        }
                     }
                 }
 
@@ -392,9 +398,12 @@ namespace LSI
                         normalizeSum += s;
                     }
                     //normalizacja
-                    for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                    if (normalizeSum != 0.0)
                     {
-                        documentTopicMatrix[i_document_index, k_topic_index] /= normalizeSum;
+                        for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                        {
+                            documentTopicMatrix[i_document_index, k_topic_index] /= normalizeSum;
+                        }
                     }
                 }
             }
@@ -534,7 +543,7 @@ namespace LSI
                 {
                     var orgCos = cosSimilarity(org.Row(i), org.Row(j));
                     var plsaCos = cosSimilarity(test.Row(i), test.Row(j));
-                    Console.WriteLine("orginal: {0:0.00} plsa: {1:0.00}", orgCos, plsaCos);
+                    Console.WriteLine("{2} - {3} orginal: {0:0.00} plsa: {1:0.00}", orgCos, plsaCos, i, j);
                 }
             }
         }
