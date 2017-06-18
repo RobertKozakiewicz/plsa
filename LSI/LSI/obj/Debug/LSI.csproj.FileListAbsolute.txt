@@ -1,0 +1,12 @@
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\LSI.exe.config
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\LSI.exe
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\LSI.pdb
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\HtmlAgilityPack.dll
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\HtmlAgilityPack.pdb
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\HtmlAgilityPack.xml
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\obj\Debug\LSI.csprojResolveAssemblyReference.cache
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\obj\Debug\LSI.exe
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\obj\Debug\LSI.pdb
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\StemmersNet.dll
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\MathNet.Numerics.dll
+E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\MathNet.Numerics.xml
