@@ -138,8 +138,8 @@ namespace LSI
             var v2 = Vector<double>.Build.DenseOfArray(new double[] { 0, 3 });
             var test = cosSimilarity(v, v2);
 
-            plsa2(TransposeRowsAndColumns(X), 3, 100);
-            plsa(TransposeRowsAndColumns(X), 3, 100);
+            plsa2(TransposeRowsAndColumns(X), 5, 100);
+            plsa(TransposeRowsAndColumns(X), 5, 100);
             Console.ReadLine();
 
 
@@ -469,9 +469,8 @@ namespace LSI
                         }
                     }
                     lambdaMatrix[0, k_topic_index] = s;
-                    NormalizeRows(lambdaMatrix);
                 }
-
+                NormalizeRows(lambdaMatrix);
 
                 for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
                 {
