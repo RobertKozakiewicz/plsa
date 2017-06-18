@@ -41,7 +41,7 @@ namespace LSI
             var rnd = GetRandomMatrix(3, 5);
             var matrix = new[,] {{1.0, 1.0, 1.0}, {1.0, 1.0, 2.0}};
             NormalizeRows(matrix, 2, 3);
-            var path = @"C:\Projects\IndexedDocuments\Samples";
+            var path = @"C:\Users\mareczek\Source\Repos\plsa\Sample documents";
             var allWords = new HashSet<string>();
             var stemmer = new EnglishStemmer();
             var documentsWordsCount = new List<DocumentWordsCountModel>();
@@ -134,10 +134,12 @@ namespace LSI
                 }
             }
 
+            plsa(TransposeRowsAndColumns(X), 2, 10);
+
             var P1 = GetRandomMatrix(allWordsCount, topicsCount);// new double[allWordsCount, topicsCount];
             var P2 = GetRandomMatrix(topicsCount, allDocumentsCount);// new double[topicsCount, allDocumentsCount];
-            int sfgdgf = 2333;
-            while (sfgdgf>0)
+            int sfgdgf = 10;
+            while (--sfgdgf>0)
             {
                 var avgDif = 0.0;
                 for (var t = 0; t < allWordsCount; t++)
@@ -283,6 +285,11 @@ namespace LSI
             return result;
         }
 
+        private static void NormalizeRows(double[,] matrix)
+        {
+            NormalizeRows(matrix, matrix.GetLength(0), matrix.GetLength(1));
+        }
+
         private static void NormalizeRows(double[,] matrix, int rows, int columns)
         {
             for (var row = 0; row < rows; row++)
@@ -307,7 +314,126 @@ namespace LSI
             return _bannedPrefixes.Any(word.StartsWith);
         }
 
-        
+        public static void plsa(double[,] documentWordMatrix, int numberOfTopics, int maxIterations = 100)
+        {
+            int numberOfDocuments = documentWordMatrix.GetLength(0); //rows N
+            int numberOfWords = documentWordMatrix.GetLength(1); //cols M
+
+            var documentTopicMatrix = GetRandomMatrix(numberOfDocuments, numberOfTopics); //P(z | d)
+            var topicWordMatrix = GetRandomMatrix(numberOfTopics, numberOfWords); // P(w | z)
+            var topicMatrix = new double[numberOfDocuments, numberOfWords, numberOfTopics]; //γ P(z | d, w)
+
+            NormalizeRows(documentTopicMatrix);
+            NormalizeRows(topicWordMatrix);
+
+            for (int iteration = 0; iteration < maxIterations; iteration++)
+            {
+                //stepE
+                for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+                {
+                    for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                    {
+                        double normalizeSum = 0.0;
+                        double prob = 0.0;
+                        for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                        {
+                            prob = documentTopicMatrix[i_document_index, k_topic_index]*
+                                   topicWordMatrix[k_topic_index, j_word_index]; //w pdfie malafiejskiego jest jeszcze lambda
+                            assertNotZero(prob);
+                            normalizeSum += prob;
+                            topicMatrix[i_document_index, j_word_index, k_topic_index] = prob;
+                        }
+                        //normalizacja
+                        for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                        {
+                            topicMatrix[i_document_index, j_word_index, k_topic_index] /= normalizeSum;
+                        }
+                    }
+                }
+                //stepM
+                for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                {
+                    double normalizeSum = 0.0;
+                    for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                    {
+                        double s = 0.0;
+                        for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+                        {
+                            double value = documentWordMatrix[i_document_index, j_word_index];
+                            s = s + value*topicMatrix[i_document_index, j_word_index, k_topic_index];
+                        }
+                        assertNotZero(s);
+                        topicWordMatrix[k_topic_index, j_word_index] = s;
+                        normalizeSum += s;
+                    }
+                    for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                    {
+                        topicWordMatrix[k_topic_index, j_word_index] /= normalizeSum;
+                    }
+                }
+
+                for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+                {
+                    double normalizeSum = 0.0;
+                    for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                    {
+                        double s = 0.0;
+                        for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                        {
+                            double value = documentWordMatrix[i_document_index, j_word_index];
+                            s = s + value*topicMatrix[i_document_index, j_word_index, k_topic_index];
+                        }
+                        assertNotZero(s);
+                        documentTopicMatrix[i_document_index, k_topic_index] = s;
+                        normalizeSum += s;
+                    }
+                    for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                    {
+                        documentTopicMatrix[i_document_index, k_topic_index] /= normalizeSum;
+                    }
+                }
+            }
+            Console.WriteLine("Done");
+        }
+
+        public static void assertNotZero(double value)
+        {
+            if (value == 0.0)
+            {
+                Environment.Exit(1);
+            }
+        }
+
+        public static T[,] TransposeRowsAndColumns<T>(T[,] arr)
+        {
+            int rowCount = arr.GetLength(0);
+            int columnCount = arr.GetLength(1);
+            T[,] transposed = new T[columnCount, rowCount];
+            if (rowCount == columnCount)
+            {
+                transposed = (T[,])arr.Clone();
+                for (int i = 1; i < rowCount; i++)
+                {
+                    for (int j = 0; j < i; j++)
+                    {
+                        T temp = transposed[i, j];
+                        transposed[i, j] = transposed[j, i];
+                        transposed[j, i] = temp;
+                    }
+                }
+            }
+            else
+            {
+                for (int column = 0; column < columnCount; column++)
+                {
+                    for (int row = 0; row < rowCount; row++)
+                    {
+                        transposed[column, row] = arr[row, column];
+                    }
+                }
+            }
+            return transposed;
+        }
 
 
     }
