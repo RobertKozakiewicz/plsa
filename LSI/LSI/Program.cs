@@ -134,6 +134,10 @@ namespace LSI
                 }
             }
 
+            var v = Vector<double>.Build.DenseOfArray(new double[] { 0, 3 });
+            var v2 = Vector<double>.Build.DenseOfArray(new double[] { 0, 3 });
+            var test = cosSimilarity(v, v2);
+
             plsa2(TransposeRowsAndColumns(X), 3, 10);
             plsa(TransposeRowsAndColumns(X), 3, 10);
             Console.ReadLine();
@@ -537,19 +541,31 @@ namespace LSI
 
         private static double cosSimilarity(Vector<double> a, Vector<double> b)
         {
-            double sum = 0.0;
-            double moda = 0.0;
-            double modb = 0.0;
-            
-            for (int i = 0; i < a.Count; i++)
-            {
-                sum = sum + a[i]*b[i];
-                moda = moda + a[i] * a[i];
-                modb = modb + b[i] * b[i];
-            }
-            double v = Math.Sqrt(moda) + Math.Sqrt(modb);
-            return Math.Cos(sum/v);
+            double dotProduct = Enumerable.Range(0, a.Count()).Sum(i => a[i] * b[i]);
+
+            double firstVectorLength = Math.Sqrt(a.Sum(weight => Math.Pow(weight, 2)));
+            double secondVectorLength = Math.Sqrt(b.Sum(weight => Math.Pow(weight, 2)));
+
+            double lengths = (firstVectorLength * secondVectorLength);
+
+            return (Math.Abs(lengths - 0.0) < double.Epsilon) ? 0 : dotProduct / lengths;
         }
+
+//        private static double cosSimilarity(Vector<double> a, Vector<double> b)
+//        {
+//            double sum = 0.0;
+//            double moda = 0.0;
+//            double modb = 0.0;
+//            
+//            for (int i = 0; i < a.Count; i++)
+//            {
+//                sum = sum + a[i]*b[i];
+//                moda = moda + a[i] * a[i];
+//                modb = modb + b[i] * b[i];
+//            }
+//            double v = Math.Sqrt(moda) + Math.Sqrt(modb);
+//            return Math.Acos(sum/v);
+//        }
 
         public static T[,] TransposeRowsAndColumns<T>(T[,] arr)
         {
