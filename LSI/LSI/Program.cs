@@ -134,7 +134,10 @@ namespace LSI
                 }
             }
 
-            plsa(TransposeRowsAndColumns(X), 2, 10);
+            plsa2(TransposeRowsAndColumns(X), 3, 10);
+            plsa(TransposeRowsAndColumns(X), 3, 10);
+            Console.ReadLine();
+
 
             var P1 = GetRandomMatrix(allWordsCount, topicsCount);// new double[allWordsCount, topicsCount];
             var P2 = GetRandomMatrix(topicsCount, allDocumentsCount);// new double[topicsCount, allDocumentsCount];
@@ -334,12 +337,10 @@ namespace LSI
                     for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
                     {
                         double normalizeSum = 0.0;
-                        double prob = 0.0;
                         for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
                         {
-                            prob = documentTopicMatrix[i_document_index, k_topic_index]*
-                                   topicWordMatrix[k_topic_index, j_word_index]; //w pdfie malafiejskiego jest jeszcze lambda
-                            assertNotZero(prob);
+                            double prob = documentTopicMatrix[i_document_index, k_topic_index]*
+                                          topicWordMatrix[k_topic_index, j_word_index];
                             normalizeSum += prob;
                             topicMatrix[i_document_index, j_word_index, k_topic_index] = prob;
                         }
@@ -362,10 +363,10 @@ namespace LSI
                             double value = documentWordMatrix[i_document_index, j_word_index];
                             s = s + value*topicMatrix[i_document_index, j_word_index, k_topic_index];
                         }
-                        assertNotZero(s);
                         topicWordMatrix[k_topic_index, j_word_index] = s;
                         normalizeSum += s;
                     }
+                    //normalizacja
                     for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
                     {
                         topicWordMatrix[k_topic_index, j_word_index] /= normalizeSum;
@@ -383,25 +384,171 @@ namespace LSI
                             double value = documentWordMatrix[i_document_index, j_word_index];
                             s = s + value*topicMatrix[i_document_index, j_word_index, k_topic_index];
                         }
-                        assertNotZero(s);
                         documentTopicMatrix[i_document_index, k_topic_index] = s;
                         normalizeSum += s;
                     }
+                    //normalizacja
                     for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
                     {
                         documentTopicMatrix[i_document_index, k_topic_index] /= normalizeSum;
                     }
                 }
             }
+            var lambdaMatrix = new double[1, numberOfTopics];
+            for (int i = 0; i < numberOfTopics; i++)
+            {
+                lambdaMatrix[0, i] = 1;
+            }
+            printResults(documentWordMatrix, numberOfTopics, documentTopicMatrix, lambdaMatrix, topicWordMatrix, numberOfDocuments);
             Console.WriteLine("Done");
         }
 
-        public static void assertNotZero(double value)
+        public static void plsa2(double[,] documentWordMatrix, int numberOfTopics, int maxIterations = 100)
         {
-            if (value == 0.0)
+            int numberOfDocuments = documentWordMatrix.GetLength(0); //rows N
+            int numberOfWords = documentWordMatrix.GetLength(1); //cols M
+
+            var documentTopicMatrix = GetRandomMatrix(numberOfDocuments, numberOfTopics); //P(z | d)
+            var topicWordMatrix = GetRandomMatrix(numberOfTopics, numberOfWords); // P(w | z)
+            var lambdaMatrix = GetRandomMatrix(1, numberOfTopics);
+            var gammaMatrix = new double[numberOfDocuments, numberOfWords, numberOfTopics]; //γ P(z | d, w)
+
+            NormalizeRows(documentTopicMatrix);
+            NormalizeRows(topicWordMatrix);
+            NormalizeRows(lambdaMatrix);
+
+            for (int iteration = 0; iteration < maxIterations; iteration++)
             {
-                Environment.Exit(1);
+                //stepE
+                for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+                {
+                    for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                    {
+                        double normalizeSum = 0.0;
+                        for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                        {
+                            double prob = lambdaMatrix[0, k_topic_index] *
+                                documentTopicMatrix[i_document_index, k_topic_index] *
+                                   topicWordMatrix[k_topic_index, j_word_index];
+                            normalizeSum += prob;
+                            gammaMatrix[i_document_index, j_word_index, k_topic_index] = prob;
+                        }
+                        if (normalizeSum != 0.0)
+                        {
+                            //normalizacja
+                            for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                            {
+                                gammaMatrix[i_document_index, j_word_index, k_topic_index] /= normalizeSum;
+                            }
+                        }
+                    }
+                }
+                //stepM
+                for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                {
+                    double s = 0.0;
+                    for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+                    {
+                        for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                        {
+                            double value = documentWordMatrix[i_document_index, j_word_index];
+                            s = s + value*gammaMatrix[i_document_index, j_word_index, k_topic_index];
+                        }
+                    }
+                    lambdaMatrix[0, k_topic_index] = s;
+                    NormalizeRows(lambdaMatrix);
+                }
+
+
+                for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                {
+                    double normalizeSum = 0.0;
+                    for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                    {
+                        double s = 0.0;
+                        for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+                        {
+                            double value = documentWordMatrix[i_document_index, j_word_index];
+                            s = s + value * gammaMatrix[i_document_index, j_word_index, k_topic_index];
+                        }
+                        topicWordMatrix[k_topic_index, j_word_index] = s;
+                        normalizeSum += s;
+                    }
+                    //normalizacja
+                    if (normalizeSum != 0.0)
+                    {
+                        for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                        {
+                            topicWordMatrix[k_topic_index, j_word_index] /= normalizeSum;
+                        }
+                    }
+                }
+
+                for (int i_document_index = 0; i_document_index < numberOfDocuments; i_document_index++)
+                {
+                    double normalizeSum = 0.0;
+                    for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                    {
+                        double s = 0.0;
+                        for (int j_word_index = 0; j_word_index < numberOfWords; j_word_index++)
+                        {
+                            double value = documentWordMatrix[i_document_index, j_word_index];
+                            s = s + value * gammaMatrix[i_document_index, j_word_index, k_topic_index];
+                        }
+                        documentTopicMatrix[i_document_index, k_topic_index] = s;
+                        normalizeSum += s;
+                    }
+                    //normalizacja
+                    if (normalizeSum != 0.0)
+                    {
+                        for (int k_topic_index = 0; k_topic_index < numberOfTopics; k_topic_index++)
+                        {
+                            documentTopicMatrix[i_document_index, k_topic_index] /= normalizeSum;
+                        }
+                    }
+                }
             }
+            printResults(documentWordMatrix, numberOfTopics, documentTopicMatrix, lambdaMatrix, topicWordMatrix, numberOfDocuments);
+            Console.WriteLine("Done");
+        }
+
+        private static void printResults(double[,] documentWordMatrix, int numberOfTopics, double[,] documentTopicMatrix,
+            double[,] lambdaMatrix, double[,] topicWordMatrix, int numberOfDocuments)
+        {
+            var u = Matrix<double>.Build.DenseOfArray(documentTopicMatrix);
+            var w = Matrix<double>.Build.Dense(numberOfTopics, numberOfTopics);
+            for (int k = 0; k < numberOfTopics; k++)
+            {
+                w[k, k] = lambdaMatrix[0, k];
+            }
+            var vt = Matrix<double>.Build.DenseOfArray(topicWordMatrix);
+            var test = u.Multiply(w).Multiply(vt);
+            var org = Matrix<double>.Build.DenseOfArray(documentWordMatrix);
+            for (int i = 0; i < numberOfDocuments; i++)
+            {
+                for (int j = i + 1; j < numberOfDocuments; j++)
+                {
+                    var orgCos = cosSimilarity(org.Row(i), org.Row(j));
+                    var plsaCos = cosSimilarity(test.Row(i), test.Row(j));
+                    Console.WriteLine("orginal: {0:0.00} plsa: {1:0.00}", orgCos, plsaCos);
+                }
+            }
+        }
+
+        private static double cosSimilarity(Vector<double> a, Vector<double> b)
+        {
+            double sum = 0.0;
+            double moda = 0.0;
+            double modb = 0.0;
+            
+            for (int i = 0; i < a.Count; i++)
+            {
+                sum = sum + a[i]*b[i];
+                moda = moda + a[i] * a[i];
+                modb = modb + b[i] * b[i];
+            }
+            double v = Math.Sqrt(moda) + Math.Sqrt(modb);
+            return Math.Cos(sum/v);
         }
 
         public static T[,] TransposeRowsAndColumns<T>(T[,] arr)
