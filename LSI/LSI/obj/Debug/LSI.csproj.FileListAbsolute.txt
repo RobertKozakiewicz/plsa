@@ -10,3 +10,15 @@ E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\obj\Debug\LSI.pdb
 E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\StemmersNet.dll
 E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\MathNet.Numerics.dll
 E:\Studia\Semestr X\Modelowanie Internetu\Projekt\LSI\LSI\bin\Debug\MathNet.Numerics.xml
+C:\Projects\plsa\LSI\LSI\bin\Debug\LSI.exe.config
+C:\Projects\plsa\LSI\LSI\obj\Debug\LSI.exe
+C:\Projects\plsa\LSI\LSI\obj\Debug\LSI.pdb
+C:\Projects\plsa\LSI\LSI\bin\Debug\LSI.exe
+C:\Projects\plsa\LSI\LSI\bin\Debug\LSI.pdb
+C:\Projects\plsa\LSI\LSI\bin\Debug\HtmlAgilityPack.dll
+C:\Projects\plsa\LSI\LSI\bin\Debug\MathNet.Numerics.dll
+C:\Projects\plsa\LSI\LSI\bin\Debug\StemmersNet.dll
+C:\Projects\plsa\LSI\LSI\bin\Debug\HtmlAgilityPack.pdb
+C:\Projects\plsa\LSI\LSI\bin\Debug\HtmlAgilityPack.xml
+C:\Projects\plsa\LSI\LSI\bin\Debug\MathNet.Numerics.xml
+C:\Projects\plsa\LSI\LSI\obj\Debug\LSI.csprojResolveAssemblyReference.cache

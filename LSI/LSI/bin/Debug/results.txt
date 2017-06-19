@@ -1,0 +1,133 @@
+0.html
+1.html
+10.html
+100.html
+1000.html
+1001.html
+1002.html
+1003.html
+1004.html
+1005.html
+1006.html
+1007.html
+1008.html
+1009.html
+101.html
+1010.html
+1011.html
+1012.html
+1013.html
+1014.html
+1015.html
+orginal: 0,7148 plsa: 0,8557 www.bristol.ac.uk |  University of Bristol - Open days | Open days | University of Bristol
+orginal: 0,6121 plsa: 0,9812 www.bristol.ac.uk |  University of Bristol - The city of Bristol | The city of Bristol | University of Bristol
+orginal: 0,6585 plsa: 0,8965 www.bristol.ac.uk |  University of Bristol - Research | University of Bristol Law School | University of Bristol
+orginal: 0,5290 plsa: 0,8983 www.bristol.ac.uk |  University of Bristol - Card Services | Card Services | University of Bristol
+orginal: 0,5819 plsa: 0,9782 www.bristol.ac.uk |  University of Bristol - University Secretary's Office | University Secretary's Office | University of Bristol
+orginal: 0,6717 plsa: 0,8857 www.bristol.ac.uk |  University of Bristol - Style guides | Style guides | University of Bristol
+orginal: 0,5843 plsa: 0,9812 www.bristol.ac.uk |  University of Bristol - Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol
+orginal: 0,5835 plsa: 0,8744 www.bristol.ac.uk |  University of Bristol - Timetabling and Room Booking | Academic Registry | University of Bristol
+orginal: 0,5755 plsa: 0,8971 www.bristol.ac.uk |  University of Bristol - Web  | Style guides | University of Bristol
+orginal: 0,6159 plsa: 0,8965 www.bristol.ac.uk |  University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,3222 plsa: 0,8554 www.bristol.ac.uk |  University of Bristol - Bristol University | IT Services | Microsoft Office 365 (including Office 2016)
+orginal: 0,6650 plsa: 0,8965 www.bristol.ac.uk |  University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,6229 plsa: 0,9818 www.bristol.ac.uk |  University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,5187 plsa: 0,9923 Open days | Open days | University of Bristol - Card Services | Card Services | University of Bristol
+orginal: 0,6607 plsa: 0,8684 Open days | Open days | University of Bristol - Style guides | Style guides | University of Bristol
+orginal: 0,2983 plsa: 1,0000 Open days | Open days | University of Bristol - Bristol University | IT Services | Microsoft Office 365 (including Office 2016)
+orginal: 0,6938 plsa: 0,8934 The city of Bristol | The city of Bristol | University of Bristol - Research | University of Bristol Law School | University of Bristol
+orginal: 0,6622 plsa: 0,9909 The city of Bristol | The city of Bristol | University of Bristol - University Secretary's Office | University Secretary's Office | University of Bristol
+orginal: 0,5645 plsa: 0,8279 The city of Bristol | The city of Bristol | University of Bristol - Style guides | Style guides | University of Bristol
+orginal: 0,5843 plsa: 1,0000 The city of Bristol | The city of Bristol | University of Bristol - Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol
+orginal: 0,6140 plsa: 0,8517 The city of Bristol | The city of Bristol | University of Bristol - Timetabling and Room Booking | Academic Registry | University of Bristol
+orginal: 0,6272 plsa: 0,8942 The city of Bristol | The city of Bristol | University of Bristol - Web  | Style guides | University of Bristol
+orginal: 0,6367 plsa: 0,8934 The city of Bristol | The city of Bristol | University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,7333 plsa: 0,8934 The city of Bristol | The city of Bristol | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,6936 plsa: 0,9999 The city of Bristol | The city of Bristol | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,6434 plsa: 0,8090 Research | University of Bristol Law School | University of Bristol - Card Services | Card Services | University of Bristol
+orginal: 0,7350 plsa: 0,9457 Research | University of Bristol Law School | University of Bristol - University Secretary's Office | University Secretary's Office | University of Bristol
+orginal: 0,6407 plsa: 0,8703 Research | University of Bristol Law School | University of Bristol - Style guides | Style guides | University of Bristol
+orginal: 0,6762 plsa: 0,8934 Research | University of Bristol Law School | University of Bristol - Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol
+orginal: 0,6947 plsa: 0,9273 Research | University of Bristol Law School | University of Bristol - Timetabling and Room Booking | Academic Registry | University of Bristol
+orginal: 0,7247 plsa: 1,0000 Research | University of Bristol Law School | University of Bristol - Web  | Style guides | University of Bristol
+orginal: 0,7969 plsa: 1,0000 Research | University of Bristol Law School | University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,8356 plsa: 1,0000 Research | University of Bristol Law School | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,7732 plsa: 0,9002 Research | University of Bristol Law School | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,6435 plsa: 0,8195 Card Services | Card Services | University of Bristol - University Secretary's Office | University Secretary's Office | University of Bristol
+orginal: 0,5209 plsa: 0,9045 Card Services | Card Services | University of Bristol - Style guides | Style guides | University of Bristol
+orginal: 0,5984 plsa: 0,8261 Card Services | Card Services | University of Bristol - Timetabling and Room Booking | Academic Registry | University of Bristol
+orginal: 0,6019 plsa: 0,8093 Card Services | Card Services | University of Bristol - Web  | Style guides | University of Bristol
+orginal: 0,6067 plsa: 0,8090 Card Services | Card Services | University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,3703 plsa: 0,9923 Card Services | Card Services | University of Bristol - Bristol University | IT Services | Microsoft Office 365 (including Office 2016)
+orginal: 0,6706 plsa: 0,8090 Card Services | Card Services | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,6148 plsa: 0,8011 Card Services | Card Services | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,2594 plsa: 1,0000 Single Sign-On | University of Bristol - Bristol University | Staff Info
+orginal: 0,1400 plsa: 1,0000 Single Sign-On | University of Bristol - Unite - Bristol University Branch
+orginal: 0,1673 plsa: 1,0000 Single Sign-On | University of Bristol - Bristol University | Unit and Programme Management System | Welcome
+orginal: 1,0000 plsa: 1,0000 Single Sign-On | University of Bristol - Single Sign-On | University of Bristol
+orginal: 0,1617 plsa: 0,9272 Single Sign-On | University of Bristol - EU referendum | Staff | University of Bristol
+orginal: 0,6113 plsa: 0,8594 University Secretary's Office | University Secretary's Office | University of Bristol - Style guides | Style guides | University of Bristol
+orginal: 0,6353 plsa: 0,9909 University Secretary's Office | University Secretary's Office | University of Bristol - Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol
+orginal: 0,7133 plsa: 0,8937 University Secretary's Office | University Secretary's Office | University of Bristol - Timetabling and Room Booking | Academic Registry | University of Bristol
+orginal: 0,6736 plsa: 0,9463 University Secretary's Office | University Secretary's Office | University of Bristol - Web  | Style guides | University of Bristol
+orginal: 0,6832 plsa: 0,9457 University Secretary's Office | University Secretary's Office | University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,7634 plsa: 0,9457 University Secretary's Office | University Secretary's Office | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,6872 plsa: 0,9928 University Secretary's Office | University Secretary's Office | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,5430 plsa: 0,8279 Style guides | Style guides | University of Bristol - Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol
+orginal: 0,5682 plsa: 0,9759 Style guides | Style guides | University of Bristol - Timetabling and Room Booking | Academic Registry | University of Bristol
+orginal: 0,6289 plsa: 0,8774 Style guides | Style guides | University of Bristol - Visual identity | Style guides | University of Bristol
+orginal: 0,6563 plsa: 0,8704 Style guides | Style guides | University of Bristol - Web  | Style guides | University of Bristol
+orginal: 0,5842 plsa: 0,8703 Style guides | Style guides | University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,3434 plsa: 0,8682 Style guides | Style guides | University of Bristol - Bristol University | IT Services | Microsoft Office 365 (including Office 2016)
+orginal: 0,6720 plsa: 0,8703 Style guides | Style guides | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,6057 plsa: 0,8322 Style guides | Style guides | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,6075 plsa: 0,8517 Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol - Timetabling and Room Booking | Academic Registry | University of Bristol
+orginal: 0,6187 plsa: 0,8942 Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol - Web  | Style guides | University of Bristol
+orginal: 0,6159 plsa: 0,8934 Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,6820 plsa: 0,8934 Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,6143 plsa: 0,9999 Technology enhanced learning and education development (TELED) | Technology enhanced learning and education development (TELED) | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,4799 plsa: 0,8489 Timetabling and Room Booking | Academic Registry | University of Bristol - Visual identity | Style guides | University of Bristol
+orginal: 0,6648 plsa: 0,9274 Timetabling and Room Booking | Academic Registry | University of Bristol - Web  | Style guides | University of Bristol
+orginal: 0,6375 plsa: 0,9273 Timetabling and Room Booking | Academic Registry | University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,7333 plsa: 0,9273 Timetabling and Room Booking | Academic Registry | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,6723 plsa: 0,8572 Timetabling and Room Booking | Academic Registry | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,2284 plsa: 1,0000 Bristol University | Staff Info - Unite - Bristol University Branch
+orginal: 0,3219 plsa: 1,0000 Bristol University | Staff Info - Bristol University | Unit and Programme Management System | Welcome
+orginal: 0,2594 plsa: 1,0000 Bristol University | Staff Info - Single Sign-On | University of Bristol
+orginal: 0,2712 plsa: 0,9272 Bristol University | Staff Info - EU referendum | Staff | University of Bristol
+orginal: 0,2000 plsa: 1,0000 Unite - Bristol University Branch - Bristol University | Unit and Programme Management System | Welcome
+orginal: 0,1400 plsa: 1,0000 Unite - Bristol University Branch - Single Sign-On | University of Bristol
+orginal: 0,2319 plsa: 0,9272 Unite - Bristol University Branch - EU referendum | Staff | University of Bristol
+orginal: 0,6558 plsa: 1,0000 Web  | Style guides | University of Bristol - Careers and employability | University of Bristol Law School | University of Bristol
+orginal: 0,7634 plsa: 1,0000 Web  | Style guides | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,6932 plsa: 0,9009 Web  | Style guides | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,7666 plsa: 1,0000 Careers and employability | University of Bristol Law School | University of Bristol - Social media directory | Connect with Bristol | University of Bristol
+orginal: 0,7029 plsa: 0,9002 Careers and employability | University of Bristol Law School | University of Bristol - Research | Faculty of Arts | University of Bristol
+orginal: 0,1673 plsa: 1,0000 Bristol University | Unit and Programme Management System | Welcome - Single Sign-On | University of Bristol
+orginal: 0,2441 plsa: 0,9272 Bristol University | Unit and Programme Management System | Welcome - EU referendum | Staff | University of Bristol
+orginal: 0,1617 plsa: 0,9272 Single Sign-On | University of Bristol - EU referendum | Staff | University of Bristol
+orginal: 0,8022 plsa: 0,9002 Social media directory | Connect with Bristol | University of Bristol - Research | Faculty of Arts | University of Bristol
+DenseMatrix 21x5-Double
+1,25495E-07  5,83541E-38  8,92573E-24     0,147539    0,0868692
+0,000136078  8,24663E-47  4,01426E-34  6,45426E-17     0,326007
+2,34335E-11  1,07059E-57  3,98335E-42     0,246517  2,11713E-30
+   0,164364  1,32579E-48  6,79983E-38   1,8198E-18  2,29075E-35
+  0,0331807  8,79784E-39  3,41794E-33  1,14664E-14       0,3348
+1,10707E-58    0,0784142  2,63338E-54  1,38863E-67  1,85948E-42
+  0,0484067  1,71535E-40    1,198E-25     0,157791  7,85636E-22
+  0,0458454  4,37169E-33     0,140783   1,1375E-17    0,0813569
+         ..           ..           ..           ..           ..
+5,77303E-33  5,80699E-14  1,00027E-27  3,79434E-38     0,170967
+  0,0983968     0,403181   2,0476E-20   2,7242E-16  9,41818E-12
+   0,132552  2,19281E-52   1,1342E-34  7,09333E-17  6,18873E-25
+ 0,00467949  1,30992E-45  8,72741E-31     0,180493  8,33934E-23
+
+DenseVector 5-Double
+0,275202
+0,167473
+0,150718
+0,251559
+0,155046
+
+1060
+Done3
